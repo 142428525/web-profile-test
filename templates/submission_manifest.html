@@ -1,0 +1,54 @@
+<!--
+============================================================
+提交包说明 / Submission Manifest
+============================================================
+本文件是「{{ SITE_TITLE }}」的完整提交包。课程平台只接受单个 .html 文件、不接受 zip，
+因此把 6 个源文件按以下顺序内嵌；解包后即为完整的多页面站点。
+
+包内文件：
+  1. index.html    （即本文件）首页：关于我、联系方式、留言表单、作品说明、首页预览
+  2. learn.html    学习记录：3 条，每条含 时间 / 学了什么 / 遇到什么问题 / 怎么解决
+  3. projects.html 项目与技能：技能证据（代码片段）+ 2 个项目作品
+  4. style.css     全站样式（内联于本页 style，可原样复制出来）
+  5. script.js     全站脚本（内联于本页 script，可原样复制出来）
+  6. README.md     项目说明、运行方式、GitHub Pages 部署、更新规范
+
+内嵌顺序：learn.html → projects.html → README.md；style.css / script.js 已内联在本页。
+页面关系：index.html ⇄ learn.html ⇄ projects.html，顶部导航互相跳转，均为独立页面。
+本包内的 index.html 是可直接打开的预览版（内联样式/脚本）；
+文件 4/5 与内联内容一致，仓库版页面通过 link / script src 引用同名外部文件。
+仓库地址：{{ REPO_URL }}
+{% if PAGES_URL %}线上地址：{{ PAGES_URL }}{% else %}线上地址：尚未部署（README 提供 GitHub Pages 部署步骤，属鼓励项，非强制）{% endif %}
+
+时间线说明（截至 {{ LAST_UPDATED }}）：
+  2025/09 高三阶段（入学前），学习 Unity/C#；
+  2026/08 高考后暑假，学习 ESP32/C++；
+  2026/10 起 大一上学期，学习 Web 前端与 Agent 使用。
+以上均为已经发生的时间，不是未来时间。
+
+按评分标准的对应关系：
+【内容完整性与真实性】
+  关于我：index.html #about-me
+  学习记录：learn.html #learn-log，3 条，四栏齐全
+  技能展示：projects.html #skills，每项附代码片段 + 仓库链接
+  项目作品：projects.html #projects，2 个，四要素齐全
+  联系方式：index.html #contact，仅 GitHub + 邮箱，无手机号/住址/身份证
+  真实性：项目、技能、仓库均为本人实际做过，未编造
+【技术达标】
+  3 个页面互相跳转：index.html / learn.html / projects.html
+  表单/交互：留言表单 + 深色模式按钮 + 学习记录筛选
+  Git 仓库 + README.md：见文件 6；仓库地址见上
+  浏览器打开：纯静态，直接打开 index.html 即可，无需构建
+【内容可读性与表达】
+  h1/h2/h3 层级 + 列表；已去掉口语化俚语和表情符号
+  100-200 字说明：index.html #statement（约 150 字）
+  首页预览：index.html #homepage-preview（内嵌 SVG；平台不支持图片附件）
+【长期可维护性】
+  CSS/JS 抽离：style.css / script.js；仓库版页面外链引用
+  GitHub Pages：部署配置见 .github/workflows/pages.yml（手动触发，需配置 Secrets）；步骤见 README；如已部署，线上地址见上
+  README 更新规范：每条记录四栏、时间 YYYY/MM、新记录置顶
+
+说明：本文件是单文件提交包，不是把三页内容堆在一个页面的锚点里；
+包内 3 个页面均有独立 DOCTYPE、title 和互跳链接。
+============================================================
+-->

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ SITE_TITLE }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ SITE_TITLE }}{% endblock %}">
+    <meta name="author" content="{{ AUTHOR_NAME }}">
+    {% if inline_assets %}
+    <style>
+{{ style_css | safe }}
+    </style>
+    {% else %}
+    <link rel="stylesheet" href="style.css">
+    {% endif %}
+</head>
+<body>
+    <header id="menu">
+        <div id="fixed">
+            <p class="brand"><a href="index.html">{{ SITE_TITLE }}</a></p>
+            <p class="tagline">{{ SITE_SUBTITLE }}</p>
+        </div>
+        <nav id="flex" aria-label="主导航">
+            <a href="index.html">首页</a>
+            <a href="learn.html">学习记录</a>
+            <a href="projects.html">项目与技能</a>
+            <button type="button" id="dark-switch" class="btn">深色模式</button>
+        </nav>
+    </header>
+
+    <main id="content">
+{% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© {{ BUILD_YEAR }} {{ AUTHOR_NAME }} · <a href="https://github.com/{{ GITHUB_USER }}">GitHub</a> · <a href="mailto:{{ CONTACT_EMAIL }}">邮箱</a> · <a href="{{ REPO_URL }}#readme">README</a></p>
+        <p>最后更新：{{ LAST_UPDATED }} · 本站为纯静态页面，无需后端。</p>
+    </footer>
+
+    {% if inline_assets %}
+    <script>
+{{ script_js | safe }}
+    </script>
+    {% else %}
+    <script src="script.js" defer></script>
+    {% endif %}
+</body>
+</html>

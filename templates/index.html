@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITE_TITLE }} | {{ AUTHOR_NAME }}{% endblock %}
+{% block description %}{{ AUTHOR_NAME }} 的个人成长主页：关于我、3 条学习记录、技能证据、项目作品与联系方式。{% endblock %}
+
+{% block content %}
+        <h1>你好，我是 {{ AUTHOR_NAME }}</h1>
+        <p class="lead">{{ SCHOOL }} {{ MAJOR }}专业 {{ GRADE }}学生。这里记录我进入大学以来的学习历程、技能积累与项目实践。</p>
+        <p class="meta">本页更新于 {{ LAST_UPDATED }}</p>
+
+        <section id="about-me">
+            <h2>关于我</h2>
+            <ul>
+                <li><strong>身份：</strong>{{ SCHOOL }} {{ MAJOR }}专业 {{ GRADE }}学生</li>
+                <li><strong>学习方向：</strong>Web 前后端、游戏开发、嵌入式、桌面应用</li>
+                <li><strong>一句话介绍：</strong>喜欢把想法做成能真正运行的项目，愿意把各种工具链都摸一遍。</li>
+            </ul>
+        </section>
+
+        <section id="statement">
+            <h2>作品说明</h2>
+            <p>本站记录我进入大学以来的学习与项目实践：目前包含关于我、三条学习记录（Web 前端、ESP32 嵌入式、Unity/Godot 游戏开发）、技能证据、两个项目作品和联系方式。接下来我计划每完成一个课程项目或自学模块，就按“时间 / 学了什么 / 遇到什么问题 / 怎么解决”补一条记录，并补充在线演示与代码片段，让这个主页持续更新到毕业。</p>
+        </section>
+
+        <section id="homepage-preview">
+            <h2>首页预览</h2>
+            <figure>
+                <svg viewBox="0 0 720 420" role="img" aria-labelledby="preview-title">
+                    <title id="preview-title">首页结构预览</title>
+                    <rect x="1" y="1" width="718" height="418" rx="12" fill="none" stroke="currentColor" stroke-opacity=".25" />
+                    <rect x="24" y="20" width="672" height="44" rx="8" fill="currentColor" fill-opacity=".08" />
+                    <text x="40" y="48" font-size="18" font-weight="700" fill="currentColor">我的成长主页</text>
+                    <text x="470" y="48" font-size="13" fill="currentColor" fill-opacity=".75">首页 · 学习记录 · 项目与技能</text>
+                    <text x="24" y="112" font-size="28" font-weight="700" fill="currentColor">你好，我是 {{ AUTHOR_NAME }}</text>
+                    <text x="24" y="140" font-size="14" fill="currentColor" fill-opacity=".75">{{ SCHOOL }} {{ MAJOR }} · 个人学习记录与项目实践</text>
+                    <rect x="24" y="170" width="210" height="84" rx="8" fill="currentColor" fill-opacity=".07" />
+                    <rect x="255" y="170" width="210" height="84" rx="8" fill="currentColor" fill-opacity=".07" />
+                    <rect x="486" y="170" width="210" height="84" rx="8" fill="currentColor" fill-opacity=".07" />
+                    <text x="40" y="200" font-size="14" font-weight="700" fill="currentColor">关于我</text>
+                    <text x="40" y="224" font-size="12" fill="currentColor" fill-opacity=".7">身份 · 方向 · 一句话</text>
+                    <text x="271" y="200" font-size="14" font-weight="700" fill="currentColor">学习记录</text>
+                    <text x="271" y="224" font-size="12" fill="currentColor" fill-opacity=".7">3 条 · 四栏格式</text>
+                    <text x="502" y="200" font-size="14" font-weight="700" fill="currentColor">项目与技能</text>
+                    <text x="502" y="224" font-size="12" fill="currentColor" fill-opacity=".7">代码片段 · 仓库链接</text>
+                    <rect x="24" y="278" width="672" height="52" rx="8" fill="currentColor" fill-opacity=".05" />
+                    <text x="40" y="309" font-size="13" fill="currentColor" fill-opacity=".75">作品说明 · 100–200 字：当前记录了什么，接下来如何更新</text>
+                    <rect x="24" y="348" width="672" height="48" rx="8" fill="currentColor" fill-opacity=".05" />
+                    <text x="40" y="377" font-size="13" fill="currentColor" fill-opacity=".75">联系方式 · 留言表单 · GitHub / 邮箱</text>
+                </svg>
+                <figcaption>首页结构预览（SVG）。课程平台不支持图片附件，完整仓库中可另存 screenshot.png。</figcaption>
+            </figure>
+        </section>
+
+        <section id="contact">
+            <h2>联系方式</h2>
+            <ul>
+                <li>GitHub：<a href="https://github.com/{{ GITHUB_USER }}">github.com/{{ GITHUB_USER }}</a></li>
+                <li>邮箱：<a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a></li>
+            </ul>
+            <h3>留言</h3>
+            <form id="contact-form">
+                <p><label for="name">昵称</label><input id="name" name="name" autocomplete="nickname" required></p>
+                <p><label for="message">内容</label><textarea id="message" name="message" rows="3" required></textarea></p>
+                <p><button type="submit">提交</button> <span id="form-status" role="status"></span></p>
+            </form>
+        </section>
+{% endblock %}

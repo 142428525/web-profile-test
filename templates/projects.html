@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}项目与技能 | {{ SITE_TITLE }}{% endblock %}
+{% block description %}技能展示与项目作品：HTML/CSS/JavaScript、Unity/C#、Godot/GDScript/Rust、Java、ESP32、TypeScript；附代码片段与仓库链接。{% endblock %}
+
+{% block content %}
+        <h1>项目与技能</h1>
+        <p>不写“熟悉/了解”，每一项都附上能点开看的证据：仓库链接、页面内代码片段或可运行作品。</p>
+
+        <section id="skills">
+            <h2>技能展示</h2>
+            <ul>
+                <li><strong>HTML/CSS/JavaScript</strong>：做过纯前端单文件页面，含发布、关键词搜索、localStorage 持久化和响应式布局。证据：<a href="https://github.com/{{ GITHUB_USER }}/web-lost-n-found-test">web-lost-n-found-test</a>；本页的筛选与主题切换也是原生 JavaScript。</li>
+                <li><strong>Unity/C#</strong>：做过四子棋（连四）游戏原型。证据：<a href="https://github.com/{{ GITHUB_USER }}/unity-project-test">unity-project-test</a></li>
+                <li><strong>Godot/GDScript/Rust</strong>：把同一个连四游戏在 Godot 里重做，带卡牌系统和联机功能。证据：<a href="https://github.com/{{ GITHUB_USER }}/godot-project-msc">godot-project-msc</a>、<a href="https://github.com/{{ GITHUB_USER }}/mscg-server">mscg-server</a>；服务器代码片段见下。</li>
+                <li><strong>Java</strong>：写过 Minecraft 模组。证据：<a href="https://github.com/{{ GITHUB_USER }}/mcmod-wonderwork">mcmod-wonderwork</a></li>
+                <li><strong>嵌入式</strong>：用 ESP32 复刻游戏里的雷达告警显示。证据：<a href="https://github.com/{{ GITHUB_USER }}/esp32-rwr-alert">esp32-rwr-alert</a></li>
+                <li><strong>TypeScript</strong>：折腾过 VS Code 扩展的 WebDAV 双向同步（fork 仓库）。证据：<a href="https://github.com/{{ GITHUB_USER }}/vscode-webdav-bisync">vscode-webdav-bisync</a></li>
+            </ul>
+        </section>
+
+        <section id="evidence">
+            <h2>页面内代码片段证据</h2>
+
+            <h3>Rust：服务器读取并解析数据包头部</h3>
+            <pre><code>let head = loop {
+    match packet::try_parse_head(&amp;mut self.read_buf) {
+        Ok(Some(x)) => break x,
+        Err(e) => log::error!("{}", e),
+        Ok(None) => {
+            log::debug!("Waiting for reading data...");
+        }
+    }
+
+    let read_bytes_num = read_from_stream(&amp;mut self.stream, &amp;mut self.read_buf)?;
+    if read_bytes_num == 0 {
+        if self.read_buf.is_empty() {
+            return Ok(None);
+        } else {
+            bail!("Connection closed by peer. Incomplete data.");
+        }
+    }
+};</code></pre>
+
+            <h3>JavaScript：学习记录筛选与主题切换</h3>
+            <pre><code>const input = document.getElementById('log-filter');
+const articles = Array.from(document.querySelectorAll('#learn-log article'));
+
+input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    articles.forEach((article) => {
+        article.hidden = q !== '' &amp;&amp; !article.textContent.toLowerCase().includes(q);
+    });
+});</code></pre>
+        </section>
+
+        <section id="projects">
+            <h2>项目作品</h2>
+
+            <article>
+                <h3>失物招领网页（IT-Intro 课程作业）</h3>
+                <ul>
+                    <li><strong>解决什么问题：</strong>做一个不用后端也能用的失物招领页，能发布失物、按关键词搜索，联系方式先脱敏、点开再看完整号码。</li>
+                    <li><strong>我负责什么：</strong>编写并维护前端开发的 Agent 提示词，把庞大的 AGENTS.md 拆成 /docs 下的模块化规则文件；协调前端功能与 AI 生成代码的调试，处理兼容性与边界情况。</li>
+                    <li><strong>用了什么技术：</strong>原生 HTML/CSS/JavaScript 前端，单文件，localStorage 存数据，响应式布局。</li>
+                    <li><strong>最大困难：</strong>AI 生成代码前后不一致、响应式布局在窄屏下错位；通过小步验证、模块化提示词和媒体查询逐步解决。</li>
+                    <li><strong>作品链接：</strong><a href="https://{{ GITHUB_USER }}.github.io/web-lost-n-found-test/">web-lost-n-found-test</a></li>
+                </ul>
+            </article>
+
+            <article>
+                <h3>ESP32 RWR 告警器</h3>
+                <ul>
+                    <li><strong>解决什么问题：</strong>用 ESP32 复刻《War Thunder》里的 RWR（雷达告警接收机）显示。</li>
+                    <li><strong>我负责什么：</strong>独立完成硬件选型、电路连接、固件开发与调试。</li>
+                    <li><strong>用了什么技术：</strong>C++/ESP32、FreeRTOS 多线程、GPIO/I2C/SPI。</li>
+                    <li><strong>最大困难：</strong>外部电磁干扰导致传感器读数跳变；通过金属屏蔽壳、接地优化、软件滤波与互斥锁解决。</li>
+                    <li><strong>作品链接：</strong><a href="https://github.com/{{ GITHUB_USER }}/esp32-rwr-alert">esp32-rwr-alert</a></li>
+                </ul>
+            </article>
+        </section>
+{% endblock %}
