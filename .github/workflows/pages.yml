@@ -1,0 +1,66 @@
+name: Build and deploy GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Build with repository secrets
+        env:
+          AUTHOR_NAME: ${{ secrets.AUTHOR_NAME }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+          GITHUB_USER: ${{ github.repository_owner }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+          SITE_TITLE: ${{ secrets.SITE_TITLE || '我的成长主页' }}
+          SITE_SUBTITLE: ${{ secrets.SITE_SUBTITLE || '个人学习记录与项目实践' }}
+          SCHOOL: ${{ secrets.SCHOOL }}
+          MAJOR: ${{ secrets.MAJOR }}
+          GRADE: ${{ secrets.GRADE || '大一' }}
+          PAGES_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: |
+          export LAST_UPDATED="$(date +%F)"
+          python build.py
+
+      - name: Remove the course submission package from the Pages artifact
+        run: rm -rf dist/submission
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
