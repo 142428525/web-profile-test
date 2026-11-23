@@ -7,8 +7,8 @@
 		{
 			"type": "editor-browser",
 			"request": "launch",
-			"name": "Open index.html",
-			"url": "file:///d%3A/HomeDir/%40%40%40tasks%40%40%40/20261117web%20profile/index.html"
+			"name": "Open dist/index.html",
+			"url": "file:///${workspaceFolder}/dist/index.html"
 		}
 	]
 }
